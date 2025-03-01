@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #9beaf1;
+        }
+        .gallery {
+            position: relative;
+            width: 80%;
+            height: 550px;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            background: #000;
+        }
+        .main-image {
+            width: 100%;
+            height: 480px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .main-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+        .main-image img.active {
+            display: block;
+        }
+        .nav-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        .prev {
+            left: 10px;
+        }
+        .next {
+            right: 10px;
+        }
+        .thumbnails {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 10px;
+            background: #333;
+        }
+        .thumbnails img {
+            width: 80px;
+            height: 50px;
+            object-fit: cover;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        .thumbnails img.active {
+            border: 2px solid #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="gallery">
+        <button class="nav-button prev" onclick="prevImage()">&#10094;</button>
+        <div class="main-image">
+            <img src="img1.jpg" class="active">
+            <img src="img2.jpg">
+            <img src="img3.webp">
+            <img src="img4.jpg">
+            <img src="img5.jpg">
+            <img src="img6.webp">
+            <img src="img7.webp">
+            <img src="img8.jpg">
+            <img src="img9.jpg">
+            <img src="img10.jpg">
+        </div>
+        <button class="nav-button next" onclick="nextImage()">&#10095;</button>
+        <div class="thumbnails">
+            <img src="img1.jpg" onclick="setImage(0)" class="active">
+            <img src="img2.jpg" onclick="setImage(1)">
+            <img src="img3.webp" onclick="setImage(2)">
+            <img src="img4.jpg" onclick="setImage(3)">
+            <img src="img5.jpg" onclick="setImage(4)">
+            <img src="img6.webp" onclick="setImage(5)">
+            <img src="img7.webp" onclick="setImage(6)">
+            <img src="img8.jpg" onclick="setImage(7)">
+            <img src="img9.jpg" onclick="setImage(8)">
+            <img src="img10.jpg" onclick="setImage(9)">
+        </div>
+    </div>
+    
+    <script>
+        let index = 0;
+        const images = document.querySelectorAll(".main-image img");
+        const thumbnails = document.querySelectorAll(".thumbnails img");
+        
+        function showImage(i) {
+            images.forEach(img => img.classList.remove("active"));
+            thumbnails.forEach(thumb => thumb.classList.remove("active"));
+            images[i].classList.add("active");
+            thumbnails[i].classList.add("active");
+        }
+        
+        function prevImage() {
+            index = (index === 0) ? images.length - 1 : index - 1;
+            showImage(index);
+        }
+        
+        function nextImage() {
+            index = (index === images.length - 1) ? 0 : index + 1;
+            showImage(index);
+        }
+        
+        function setImage(i) {
+            index = i;
+            showImage(index);
+        }
+
+        setInterval(() => {
+            nextImage();
+        }, 10000);
+    </script>
+</body>
+</html>
